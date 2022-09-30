@@ -55,13 +55,14 @@ use_previous_month () {
 
 export_art_for_folder () {
     local repofolder=$1
+	local author=$2
     mkdir -p $currentDir/workLogs
     local logName=$currentDir/workLogs/$repofolder$endDateFile.txt
     `echo '' > $logName`
 
     cd $repofolder
 
-            `git log -p --author=$author --since=$startDate --until=$endDate --branches | cat >> $logName`
+            `git log -p --author="$author" --since=$startDate --until=$endDate --branches | cat >> $logName`
     cd ..
 
     echo 'Wrote to file '$logName
@@ -69,10 +70,6 @@ export_art_for_folder () {
 
 # PREREQS
 init
-
-# CONFIGURATION
-# -- your identifier from git
-author=youremail@do_not_exists_test_domain
 
 # -- what month to use
 
@@ -84,9 +81,9 @@ use_current_month
 # -- export_art_for_folder "folder_2"
 # -- export_art_for_folder "folder_3"
 
-export_art_for_folder "folder_1"
-export_art_for_folder "folder_2"
-export_art_for_folder "folder_3"
+export_art_for_folder "folder_1" "Author firstname surname or email"
+export_art_for_folder "folder_2" "Author firstname surname or email"
+export_art_for_folder "folder_3" "Author firstname surname or email"
 
 # FINISH OFF
 echo "Done!"
